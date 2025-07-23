@@ -142,8 +142,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # settings.py
-STRIPE_SECRET_KEY = 'sk_test_51RWzgcQDqm6LhKSVIf8dMeEjus8WqOLoQENzkxBtgB5Y4uFb3gIWQepcmr86xvWB2zb7a0pW0ZZ5an5Nyta90zKw00yIotelVr'
-STRIPE_PUBLIC_KEY = 'pk_test_51RWzgcQDqm6LhKSV3qLhnFHSHnhqNfXwhJglJMHs741K1dsFL6PSJXlDh8DchSyAkR1Xmwa00MSRuiN0YoG9OFuq00jKF1jP6w'
+STRIPE_SECRET_KEY = ''
+STRIPE_PUBLIC_KEY = ''
 STRIPE_WEBHOOK_SECRET = 'whsec_...'
 
 # Default primary key field type
