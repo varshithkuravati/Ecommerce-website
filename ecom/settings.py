@@ -142,8 +142,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # settings.py
-STRIPE_SECRET_KEY = ''
-STRIPE_PUBLIC_KEY = ''
+STRIPE_SECRET_KEY = ''  # scerect key need to place here
+STRIPE_PUBLIC_KEY = ''  # public key need to place here
 STRIPE_WEBHOOK_SECRET = 'whsec_...'
 
 # Default primary key field type
@@ -161,7 +161,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'varshithkuravati@gmail.com'
+EMAIL_HOST_USER = '' # email need to place here
 EMAIL_HOST_PASSWORD = ''
 
 
