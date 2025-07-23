@@ -1,0 +1,94 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {{ achive.name }} {% endblock %}
+
+{% block description %} {{ achive.description }} {% endblock %}
+
+{% block title1 %} {{ achive.name }} {% endblock %}
+
+{% block description1 %} {{ achive.description }} {% endblock %}
+
+{% block title2 %} {{ achive.name }} {% endblock %}
+{% block description2 %} {{ achive.description }} {% endblock %}
+
+{% block body %}
+
+<div class="products-banner">
+
+    <div class="pBanner-imgs">
+
+        
+         <img src="{% static 'images/PP-banner.jpg' %}" alt="" class="pBanner-img">
+
+
+    </div>
+
+    <div class="PB-headings">
+
+        <h1>Our Achivements</h1>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<div class="page-content">
+
+
+    <div class="page-heading">
+
+        <h1>{{ achive.name }}</h1>
+        <br>
+        <br>
+        <br>
+
+
+
+
+    </div>
+
+    <div class="page-matter">
+
+        <img src="{{ achive.image.url }}" alt=""  class="S-img">
+
+           <div class="con">
+
+            {{ achive.description|safe }}
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,287 @@
+ {% extends 'shop/base.html' %}
+
+{% load static %}
+
+ {% block title %} Categories | page  {% endblock %}
+
+
+
+
+
+
+
+
+{% block body %}
+    
+    <div class="breadcrumbs">
+        <a href="#">Home</a>
+        <span>/</span>
+        <a href="#">Your Cart</a>
+    </div>
+    
+    <!-- Cart Page -->
+    <div class="cart-container" id="cart-page">
+        <div class="cart-items">
+            <div class="cart-header">
+                <h2 class="cart-title">Your Cart</h2>
+                <span class="cart-count-text"></span>
+            </div>
+
+            {% for item in items %}
+            
+            <div class="cart-item">
+
+                {% for image in item.product.images.all|slice:":1" %}
+
+                <img src="{{ image.image.url }}" alt="Ultra Boost Running Shoes" class="cart-item-img">
+               
+
+                {% endfor %}
+               
+                <div class="cart-item-details">
+                    <div>
+                        <h3 class="cart-item-title">{{ item.product.name }}</h3>
+                        <p class="cart-item-variant">{{ item.color }} / {{ item.size }}</p>
+                    </div>
+                    <div class="cart-item-actions">
+                       <a href="{% url 'shop:removeFromCart' item_id=item.pk %}"> <span class="cart-item-action" onclick=""><i class="fas fa-trash"></i> Remove</span></a>
+                        <!-- <span class="cart-item-action"><i class="fas fa-heart"></i> Save for later</span> -->
+                    </div>
+                </div>
+                <div class="cart-item-price">
+                    <div class="quantity-selector">
+                       <a href="{% url 'shop:quantity_desc' item_id=item.pk %}"> <button class="quantity-btn" onclick="">-</button></a>
+                        <input type="number" value="{{ item.quantity }}" min="1" class="quantity-input" onchange="" readonly>
+                       <a href="{% url 'shop:quantity_inc' item_id=item.pk %}"> <button class="quantity-btn" onclick="updateQuantity(this, 1)">+</button></a>
+                    </div>
+                    <div class="item-total">{{ item.get_total }}</div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+
+
+
+
+            
+
+            
+
+        </div>
+
+
+
+        
+        <div class="order-summary">
+            <h3 class="summary-title">Order Summary</h3>
+            <div class="summary-row">
+                <span class="summary-label">Subtotal</span>
+                <span class="summary-value">${{ products_total }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Shipping</span>
+                <span class="summary-value">${{ delivery }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Discount</span>
+                <span class="summary-value">${{ discount }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Tax</span>
+                <span class="summary-value">${{ tax }}</span>
+            </div>
+            <div class="summary-row summary-total">
+                <span class="summary-label">Total</span>
+                <span class="summary-value">${{ total }}</span>
+            </div>
+            
+            <div class="promo-code">
+                <h4 class="promo-title">Promo Code</h4>
+                <form class="promo-form" method="post" action="{% url 'shop:view_cart' %}">
+
+                      {% csrf_token %}
+                    <input type="text" placeholder="Enter code" class="promo-input" name="code">
+                   <button type="submit" class="btn" >Apply</button>
+               </form> 
+            </div>
+
+            <form action="{% url 'shop:checkout' %}" method="post">
+
+                {% csrf_token %}
+            
+                <input type="text" value='{{ code }}' class="promo-input" name="code" style="display: none;">
+            
+             <button class="btn" type="submit">Proceed to Checkout</button>
+            </form>
+            <!-- <a href="#" class="btn btn-outline">Continue Shopping</a> -->
+        </div>
+    </div>
+    
+    <!-- Checkout Page (hidden by default) -->
+   
+    <!-- Success Page (hidden by default) -->
+    <div class="success-message" id="success-page" style="display: none;">
+        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+        <h2 class="success-title">Order Confirmed!</h2>
+        <p class="success-text">Thank you for your purchase. Your order has been received and is being processed. You will receive a confirmation email shortly.</p>
+        
+        <div class="order-details">
+            <div class="order-detail">
+                <span>Order Number</span>
+                <span>#NX-2023-4567</span>
+            </div>
+            <div class="order-detail">
+                <span>Date</span>
+                <span>June 15, 2023</span>
+            </div>
+            <div class="order-detail">
+                <span>Total</span>
+                <span>$647.97</span>
+            </div>
+            <div class="order-detail">
+                <span>Payment Method</span>
+                <span>Visa ending in 4242</span>
+            </div>
+        </div>
+        
+        <a href="#" class="btn" style="max-width: 300px; margin: 0 auto;">Continue Shopping</a>
+    </div>
+
+
+    
+    
+
+    <script>
+        // Quantity controls
+        function updateQuantity(button, change) {
+            const input = button.parentElement.querySelector('.quantity-input');
+            let value = parseInt(input.value) + change;
+            if (value < 1) value = 1;
+            input.value = value;
+            updateCartTotal();
+        }
+        
+        function updateQuantityInput(input) {
+            if (input.value < 1) input.value = 1;
+            updateCartTotal();
+        }
+        
+        // Remove item from cart
+        function removeItem(element) {
+            const cartItem = element.closest('.cart-item');
+            cartItem.remove();
+            updateCartCount();
+            updateCartTotal();
+            
+            // Show empty cart if no items left
+            if (document.querySelectorAll('.cart-item').length === 0) {
+                showEmptyCart();
+            }
+        }
+        
+        // Update cart count in header
+        function updateCartCount() {
+            const count = document.querySelectorAll('.cart-item').length;
+            document.querySelector('.cart-count').textContent = count;
+            document.querySelector('.cart-count-text').textContent = count + (count === 1 ? ' item' : ' items');
+        }
+        
+        // Update cart totals
+        function updateCartTotal() {
+            // This would be more complex in a real app
+            console.log('Update totals would happen here');
+        }
+        
+        // Show empty cart message
+        function showEmptyCart() {
+            const cartItems = document.querySelector('.cart-items');
+            cartItems.innerHTML = `
+                <div class="empty-cart">
+                    <div class="empty-cart-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3 class="empty-cart-title">Your cart is empty</h3>
+                    <p class="empty-cart-text">Looks like you haven't added anything to your cart yet. Start shopping to find amazing products!</p>
+                    <a href="#" class="btn">Continue Shopping</a>
+                </div>
+            `;
+        }
+        
+        // Page navigation functions
+        // function showCheckout() {
+        //     document.getElementById('cart-page').style.display = 'none';
+        //     document.getElementById('checkout-page').style.display = 'grid';
+        //     window.scrollTo(0, 0);
+        // }
+        
+        // function showCart() {
+        //     document.getElementById('cart-page').style.display = 'grid';
+        //     document.getElementById('checkout-page').style.display = 'none';
+        //     window.scrollTo(0, 0);
+        // }
+        
+        // function showSuccess() {
+        //     document.getElementById('checkout-page').style.display = 'none';
+        //     document.getElementById('success-page').style.display = 'block';
+        //     window.scrollTo(0, 0);
+            
+        //     // In a real app, you would submit the form here
+        // }
+        
+        // Payment method selection
+        // function selectPayment(element) {
+        //     document.querySelectorAll('.payment-method').forEach(method => {
+        //         method.classList.remove('selected');
+        //     });
+        //     element.classList.add('selected');
+            
+        //     // Show/hide credit card form based on selection
+        //     const paymentType = element.querySelector('.payment-title').textContent;
+        //     const cardForm = document.getElementById('credit-card-form');
+            
+        //     if (paymentType === 'Credit Card') {
+        //         cardForm.style.display = 'block';
+        //     } else {
+        //         cardForm.style.display = 'none';
+        //     }
+        // }
+
+
+
+
+        // for payment gateway 
+
+//        document.getElementById('checkout-form').addEventListener('submit', function(event) {
+//             event.preventDefault();
+
+
+//             const formdata = new FormData(this);
+
+//             fetch("{% url 'users:orderPlace' %}",
+//                 {
+//                     method: 'POST',
+//                     body: formdata
+//                 }
+//             )
+//           .then(res => res.json())
+//   .then(data => {
+//     if (data.url) {
+//       window.location.href = data.url;
+//     } else {
+//       console.error("Stripe session creation failed:", data);
+//       alert("Payment session creation failed. See console for details.");
+//     }
+//   })
+//   .catch(err => {
+//     console.error("Error during fetch:", err);
+//     alert("Network or server error. See console for details.");
+//   });
+// });
+
+
+
+
+    </script>
+
+
+
+{% endblock %}

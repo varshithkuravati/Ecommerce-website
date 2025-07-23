@@ -1,0 +1,422 @@
+
+ {% extends 'shop/base.html' %}
+
+
+
+
+ {% block title %} Reviews | page  {% endblock %}
+
+
+
+
+{% load static %}
+
+
+
+
+
+
+{% block style %}
+    <style>
+        :root {
+            /* --card-bg: #000000;
+            --dark-bg: #000000;
+            --darker-bg: #000000;
+            --border-color: #000000;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --accent: #6d28d9; */
+            --star-active: #ffc107;
+            --star-inactive: #e4e5e9;
+        }
+        
+        /* body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--dark-bg);
+            margin: 0;
+            padding: 0;
+        } */
+        
+        .review-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .product-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            object-fit: cover;
+            margin-right: 1.5rem;
+            background-color: var(--darker-bg);
+        }
+        
+        .product-info h2 {
+            font-size: 1.25rem;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .product-info p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
+        .review-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .rating-section {
+            margin-bottom: 2rem;
+        }
+        
+        .rating-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .star {
+            font-size: 1.8rem;
+            color: var(--star-inactive);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .star.active, .star:hover {
+            color: var(--star-active);
+        }
+        
+        .rating-hint {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.1);
+        }
+        
+        .photo-upload {
+            margin-top: 1rem;
+        }
+        
+        .upload-label {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--dark-bg);
+            border: 1px dashed var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .upload-label:hover {
+            border-color: var(--accent);
+            background-color: rgba(109, 40, 217, 0.05);
+        }
+        
+        .upload-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .upload-thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            object-fit: cover;
+            position: relative;
+        }
+        
+        .remove-image {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        
+        .submit-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .recommend-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .recommend-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .radio-input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .review-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .product-image {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+
+{% endblock %}
+    
+    
+    
+    {% block body %}
+
+
+    <div class="review-container">
+        <div class="review-header">
+
+            {% for image in order_item.product.images.all|slice:":1" %}
+
+            <img src="{{ image.image.url }}" alt="Product" class="product-image">
+
+            {% endfor %}
+
+
+            <div class="product-info">
+                <h2>{{ order_item.product.name }}</h2>
+                <p>Color: {{ order_item.color }} | Size: {{ order_item.size }}</p>
+            </div>
+        </div>
+        
+        <h1 class="review-title">Write a Review</h1>
+        
+        <form id="reviewForm" action="{% url 'users:review' id=order_item.pk %}" method="post" enctype="multipart/form-data" onsubmit="return validateForm">
+            {% csrf_token %}
+            <div class="rating-section">
+                <div class="rating-title">Overall Rating</div>
+                <div class="star-rating" id="starRating">
+                    <i class="fas fa-star star" data-rating="1"></i>
+                    <i class="fas fa-star star" data-rating="2"></i>
+                    <i class="fas fa-star star" data-rating="3"></i>
+                    <i class="fas fa-star star" data-rating="4"></i>
+                    <i class="fas fa-star star" data-rating="5"></i>
+                </div>
+                <div class="rating-hint">Click to rate this product</div>
+                <input type="hidden" id="ratingValue" name="rating" value="0">
+            </div>
+            
+
+            
+            <div class="form-group">
+                <label for="reviewText" class="form-label">Your Review</label>
+                <textarea id="reviewText" class="form-textarea" name="content" placeholder="Share details about your experience with this product" >{{ content.description }}</textarea>
+            </div>
+            
+
+            
+            <div class="form-group">
+                <label class="form-label">Add Photos (Optional)</label>
+                <input type="file" id="reviewPhotos" name="images" accept="image/*" multiple style="display: none;">
+                <label for="reviewPhotos" class="upload-label">
+                    <i class="fas fa-camera"></i> Upload Photos
+                </label>
+                <div class="upload-preview" id="uploadPreview"></div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Submit Review</button>
+        </form>
+    </div>
+
+    <script>
+        // Star Rating System
+        const stars = document.querySelectorAll('.star');
+        const ratingValue = document.getElementById('ratingValue');
+        
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                ratingValue.value = rating;
+                
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+            
+            star.addEventListener('mouseover', function() {
+                const hoverRating = this.getAttribute('data-rating');
+                
+                stars.forEach((s, index) => {
+                    if (index < hoverRating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+            
+            star.addEventListener('mouseout', function() {
+                const currentRating = ratingValue.value;
+                
+                stars.forEach((s, index) => {
+                    if (index < currentRating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Photo Upload Preview
+        const fileInput = document.getElementById('reviewPhotos');
+        const uploadPreview = document.getElementById('uploadPreview');
+        
+        fileInput.addEventListener('change', function() {
+            uploadPreview.innerHTML = '';
+            
+            if (this.files) {
+                Array.from(this.files).forEach(file => {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const previewDiv = document.createElement('div');
+                        previewDiv.style.position = 'relative';
+                        previewDiv.style.display = 'inline-block';
+                        
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'upload-thumbnail';
+                        
+                        const removeBtn = document.createElement('span');
+                        removeBtn.className = 'remove-image';
+                        removeBtn.innerHTML = '&times;';
+                        removeBtn.addEventListener('click', function() {
+                            previewDiv.remove();
+                        });
+                        
+                        previewDiv.appendChild(img);
+                        previewDiv.appendChild(removeBtn);
+                        uploadPreview.appendChild(previewDiv);
+                    }
+                    
+                    reader.readAsDataURL(file);
+                });
+            }
+        });
+        
+        // Form Submission
+        // const reviewForm = document.getElementById('reviewForm');
+        
+        // reviewForm.addEventListener('submit', function(e) {
+        //     // e.preventDefault();
+            
+        //     if (ratingValue.value === '0') {
+        //         alert('Please select a rating');
+        //         return;
+        //     }
+            
+        //     // In a real app, you would submit the form data to your server here
+        //     const formData = new FormData(this);
+        //     console.log('Form data:', Object.fromEntries(formData));
+            
+        //     alert('Thank you for your review!');
+        //     this.reset();
+        //     stars.forEach(star => star.classList.remove('active'));
+        //     ratingValue.value = '0';
+        //     uploadPreview.innerHTML = '';
+        // });
+
+ 
+        function validateForm() {
+            const input = document.getElementById('reviewPhotos');
+            if(input.files.length > 4){
+                alert("You can only upload a maximum of 4 images.");
+                return false;
+            }
+            return true;
+        }
+
+
+    
+    </script>
+
+
+{% endblock %}

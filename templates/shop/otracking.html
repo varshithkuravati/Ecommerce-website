@@ -1,0 +1,500 @@
+
+
+
+ {% extends 'shop/base.html' %}
+
+
+ {% block title %} Orders Tracking | page  {% endblock %}
+
+
+
+
+{% load static %}
+
+
+
+
+
+{% block style %}
+
+    <style>
+        
+        .inact{
+
+            display: none;
+        }
+
+
+    </style>
+
+    {% endblock %}
+
+
+    {% block body %}
+
+
+
+    
+    <div class="breadcrumbs">
+        <a href="{% url 'shop:index' %}">Home</a>
+        <span>/</span>
+        <a href="{% url 'users:orders' %}">Account</a>
+        <span>/</span>
+        <a href="{% url 'users:orders' %}">My Orders</a>
+        <span>/</span>
+        <a href="{% url 'users:otracking' id=user_order.pk %}"><span>Track Order</span></a>
+    </div>
+
+
+        <div class="tracking-container cancel">
+
+        <div class="tracking-header">
+            <!-- <h1 class="tracking-title">please Enter reason to cancel</h1> -->
+            <p class="tracking-subtitle"></p>
+            <form action="" method="post" class="tracking-search">
+                <!-- <input type="text" name="reason" placeholder="Order number"> -->
+                <!-- <button type="submit">submit</button> -->
+            </form>
+        </div>
+    
+
+        {% if user_order.type == 'order' %}
+
+        
+        <!-- Tracking Status (shown after search) -->
+        <div class="tracking-status">
+            <div class="status-header">
+                <div>
+                    <div class="order-number">Order {{ user_order.order_id }}</div>
+                    <div class="order-date">Placed on {{ user_order.Odate }}</div>
+                </div>
+                <div class="current-status">{{ user_order.status }}</div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="timeline-icon completed">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.odate }}</div>
+                        <div class="timeline-text">Order placed</div>
+                    </div>
+                </div>
+                <!-- <div class="timeline-step">
+                    <div class="timeline-icon completed">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">May 29, 2023</div>
+                        <div class="timeline-text">Order confirmed</div>
+                    </div>
+                </div> -->
+                <div class="timeline-step">
+                    <div class="timeline-icon {% if user_order.status == 'shipped' or user_order.status == 'delivered' %} completed {% endif %}">
+                    {% if user_order.status == 'shipped' or user_order.status == 'delivered' %}  <i class="fas fa-check"></i> {% endif %}   
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.est_dates.proccessed_date }}</div>
+                        <div class="timeline-text">Order processed</div>    
+                    </div>
+                </div>
+                <div class="timeline-step">
+
+                    <div class="timeline-icon {% if user_order.status == 'shipped' %}active {% endif %} ">
+                       {% if user_order.status == 'shipped' %} <i class="fas fa-shipping-fast"></i> {% endif %} 
+                    </div>
+
+                    <div class="timeline-icon {% if user_order.status == 'delivered' %} completed {% endif %}">
+                    {% if user_order.status == 'delivered' %}  <i class="fas fa-check"></i> {% endif %}
+                    </div>
+
+
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.est_dates.shipped_date }}</div>
+                        <div class="timeline-text">Shipped</div>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                            {{ user_order.location }}
+                           Tracking Number: {{ user_order.tracking_number }}
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-step">
+                    <div class="timeline-icon {% if user_order.status == 'delivered' %} completed {% endif %}">
+                        {% if user_order.status == 'delivered' %} <i class="fas fa-check"></i> {% endif %}
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.est_dates.delivery_date }}</div>
+                        <div class="timeline-text">Estimated delivery</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {% endif %}
+
+
+
+         <!-- Time line for cancel order -->
+
+
+            {% if user_order.type == 'cancel' %}
+
+
+        <div class="tracking-status">
+            <div class="status-header">
+                <div>
+                    <div class="order-number">Order {{ user_order.order_id }}</div>
+                    <div class="order-date">Placed on {{ user_order.odate }}</div>
+                </div>
+                <div class="current-status">{{ user_order.status }}</div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="timeline-icon completed">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.Odate }}</div>
+                        <div class="timeline-text">Order placed</div>
+                    </div>
+                </div>
+              
+                <div class="timeline-step">
+                    <div class="timeline-icon  {% if user_order.status == 'cancelled' %}completed {% endif %}">
+                        {% if user_order.status == 'cancelled' %} <i class="fas fa-check"></i>{% endif %} 
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.est_dates.proccessed_date }}</div>
+                        <div class="timeline-text">Order processed</div>    
+                    </div>
+                </div>
+              
+                <div class="timeline-step" >
+                    <div class="timeline-icon"  {% if user_order.status == "cancelled" %} style="background-color: red;" {% endif %}>
+                         {% if user_order.status == "cancelled" %} <i class="fas fa-check"></i> {% endif %}
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.est_dates.cancel_date }}</div>
+                        <div class="timeline-text">Order Cancelled</div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+
+        {% endif %}
+
+
+
+
+        <!-- Time line for return the order -->
+
+
+
+         
+            {% if user_order.type == 'return' %}
+
+
+        <div class="tracking-status">
+            <div class="status-header">
+                <div>
+                    <div class="order-number">Order {{ user_order.order_id }}</div>
+                    <div class="order-date">Placed on {{ user_order.odate }}</div>
+                </div>
+                <div class="current-status">{{ user_order.status }}</div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="timeline-icon completed">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.Odate }}</div>
+                        <div class="timeline-text">Order placed</div>
+                    </div>
+                </div>
+              
+                <div class="timeline-step">
+                    <div class="timeline-icon  {% if user_order.status == 'returned' %}completed {% endif %}">
+                        {% if user_order.status == 'returned' %} <i class="fas fa-check"></i>{% endif %} 
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.est_dates.proccessed_date }}</div>
+                        <div class="timeline-text">Order processed</div>    
+                    </div>
+                </div>
+              
+                <div class="timeline-step" >
+                    <div class="timeline-icon  {% if user_order.status == "returned" %} completed {% endif %}">
+                         {% if user_order.status == "returned" %} <i class="fas fa-check"></i> {% endif %}
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">pakage will collect on {{ user_order.est_dates.return_date }}</div>
+                        <div class="timeline-text">Order returned</div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+
+        {% endif %}
+
+
+
+
+
+
+
+
+
+        <!-- Time line for order Replacement -->
+
+        {% if user_order.type == 'replace' %}
+
+
+
+        <div class="tracking-status">
+            <div class="status-header">
+                <div>
+                    <div class="order-number">Order {{ user_order.order_id }}</div>
+                    <div class="order-date">Placed on {{ user_order.odate }}</div>
+                </div>
+                <div class="current-status">{{ user_order.status }}</div>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="timeline-icon completed">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">Ordered date : {{ user_order.Odate }}</div>
+                        <div class="timeline-text">Order Replacement placed</div>
+                    </div>
+                </div>
+          
+                <div class="timeline-step">
+                    <div class="timeline-icon {% if user_order.status == 'shipped' or user_order.status == 'replaced' %}completed {% endif %}">
+                       {% if user_order.status == 'shipped' or user_order.status == 'replaced' %}<i class="fas fa-check"></i> {% endif %} 
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.est_dates.proccessed_date }}</div>
+                        <div class="timeline-text">Order processed</div>    
+                    </div>
+                </div>
+                <div class="timeline-step">
+                    <div class="timeline-icon {% if user_order.status == 'shipped' %}active {% endif %}">
+                       {% if user_order.status == 'shipped'%}<i class="fas fa-shipping-fast"></i>{% endif %}
+                    </div>
+
+                    <div class="timeline-icon {% if user_order.status == 'replaced' %}completed {% endif %}">
+                       {% if user_order.status == 'replaced'%}<i class="fas fa-check"></i>{% endif %}
+                    </div>
+
+
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.est_dates.shipped_date }}</div>
+                        <div class="timeline-text">Shipped </div>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">
+                            {{ user_order.location }}
+                           Tracking Number: {{ user_order.tracking_number }}
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-step">
+                    <div class="timeline-icon {% if user_order.status == 'replaced' %}completed {% endif %}">
+                        {% if user_order.status == 'replaced' %} <i class="fas fa-check"></i> {% endif %}
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">{{ user_order.est_dates.replace_date }}</div>
+                        <div class="timeline-text">Estimated Replacement date</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+  {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+        
+        <div class="tracking-details">
+            <div class="detail-card">
+                <h3 class="detail-title">Shipping Address</h3>
+                <div class="detail-content">
+
+                    {{ user_order.address|safe}}
+
+                    <!-- <p>John Smith</p>
+                    <p>123 Main Street</p>
+                    <p>Apartment 4B</p>
+                    <p>New York, NY 10001</p>
+                    <p>United States</p>
+                    <p>Phone: (123) 456-7890</p> -->
+                </div>
+            </div>
+            
+            <div class="detail-card">
+                <h3 class="detail-title">Payment Method</h3>
+                <div class="detail-content">
+                    <p><i class="fab fa-cc-visa" style="margin-right: 0.5rem;"></i> Visa ending in 4242</p>
+                    <p>price: ${{ price }}</p>
+                    <p>delivery: ${{ delivery }}</p>
+                    <p>discount: ${{ discount }}</p>
+                    <!-- <p>tax: </p> -->
+
+                    <p>Total: ${{ user_order.total }}</p>
+                </div>
+            </div>
+        </div>
+
+
+     
+
+
+    <div class="tracking-container cancel-tab inact" id="cancel-tab">
+        <div class="tracking-header">
+            <h1 class="tracking-title">please Enter reason to cancel</h1>
+            <p class="tracking-subtitle"></p>
+            <form action="{% url 'users:cancel_order' id=user_order.pk %}" method="post" class="tracking-search">
+                {% csrf_token %}
+                <input type="text" name="reason">
+                <button type="submit">submit</button>
+            </form>
+        </div>
+    </div>
+
+     <div class="tracking-container inact" id="replace-tab">
+        <div class="tracking-header">
+            <h1 class="tracking-title">please Enter reason to Replace</h1>
+            <p class="tracking-subtitle"></p>
+            <form action="{% url 'users:replace_order' id=user_order.pk %}" method="post" class="tracking-search">
+                {% csrf_token %}
+                <input type="text" name="reason">
+                
+                <!-- <textarea name="reason" id=""></textarea> -->
+                <button type="submit">submit</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="tracking-container inact" id="Return-tab">
+        <div class="tracking-header">
+            <h1 class="tracking-title">please Enter reason to Return and payment will be refunded within 7 to 8 working days</h1>
+            <p class="tracking-subtitle"></p>
+            <form action="{% url 'users:return_order' id=user_order.pk %}" method="post" class="tracking-search">
+                {% csrf_token %}
+                <input type="text" name="reason">
+                <!-- <textarea name="reason" id=""></textarea> -->
+                <button type="submit">submit</button>
+            </form>
+        </div>
+
+    </div>
+
+
+        
+        <div class="tracking-actions">
+
+            
+            <button class="btn btn-outline" id="Return" {% if not user_order.status == 'delivered' %} style="display: none;" {% endif %} >Return Order</button>
+
+           
+
+            <button class="btn btn-outline" id="cancel" {% if user_order.status == 'delivered' or user_order.type == 'cancel' or user_order.type == 'replace' %} style="display: none;" {% endif %} >Cancel Order</button>
+ 
+
+            
+            <button class="btn btn-outline" id="replace" {% if not user_order.status == 'delivered' %} style="display: none;" {% endif %} >Replacement</button>
+
+            <button class="btn">Contact Support</button>
+        </div>
+
+
+    </div>
+   
+    
+   
+
+    <script>
+        // In a real app, this would handle the order tracking search
+        const trackingSearch = document.querySelector('.tracking-search');
+        
+        trackingSearch.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Here you would fetch order tracking info
+            console.log('Tracking order...');
+        });
+
+
+
+        const cancel = document.querySelector('#cancel');
+        const replace = document.querySelector('#replace');
+        const Return = document.querySelector('#Return');
+
+        const cancel_tab = document.querySelector('#cancel-tab');
+        const replace_tab = document.querySelector('#replace-tab');
+        const Return_tab = document.querySelector('#Return-tab');
+
+        cancel.addEventListener('click',(e)=>{
+
+            e.preventDefault();
+            // console.log('cancel button');
+
+            cancel_tab.classList.remove('inact');
+            // Return_tab.classList.add('inact');
+            replace_tab.classList.add('inact');
+            // cancel.classList.add('act');
+
+        });
+
+
+        replace.addEventListener('click',(e)=>{
+
+            e.preventDefault();
+
+            replace_tab.classList.remove('inact');
+            Return_tab.classList.add('inact');
+            cancel_tab.classList.add('inact');
+            
+
+
+        });
+
+        Return.addEventListener('click',(e)=>{
+
+            e.preventDefault();
+
+            Return_tab.classList.remove('inact');
+            replace_tab.classList.add('inact');
+            // cancel_tab.classList.add('inact');
+            
+
+
+        });
+
+       
+
+
+
+    </script>
+
+    {% endblock %}

@@ -1,0 +1,396 @@
+
+
+
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} {{ internship.name }} {% endblock %}
+
+{% block description %} {{ internship.description }} {% endblock %}
+
+{% block title1 %} {{ internship.name }} {% endblock %}
+
+{% block description1 %} {{ internshipdescription }} {% endblock %}
+
+{% block title2 %} {{ internship.name }} {% endblock %}
+{% block description2 %} {{ internship.description }} {% endblock %}
+
+
+
+
+
+
+
+{% block body %}
+
+
+
+<div class="products-banner">
+
+    <div class="pBanner-imgs">
+
+        
+        <img src="{% static 'images/PP-banner.jpg' %}" alt="" class="pBanner-img">
+
+
+    </div>
+
+    <div class="PB-headings">
+
+        <h1>INTERNSHIP | Botpulse Technosole</h1>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+<div class="page-content">
+
+
+    <div class="page-heading">
+
+        <h1>{{ internship.name }}</h1>
+
+
+
+
+    </div>
+
+    <div class="page-matter">
+
+    <br><br><br>
+
+        <!-- <img src="<?php echo $r2['image'];  ?>" alt=""  class="S-img"> -->
+
+       
+
+        <div class="con">
+{{ internship.description|safe }}
+
+        </div>
+
+
+        <br><br>
+
+
+
+            
+    <p style="color: red;"> {% if internship.oc == 'open' %}    {% else %}  Application is closed  {% endif %} </p>   
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+      
+
+
+
+
+    {% if internship.oc == 'open' %}
+    <div class="contact" style="display: block;">
+{% else %}
+    <div class="contact" style="display: none;">
+{% endif %}
+
+   
+
+    <div class="contact-intro">
+
+
+        <h2>Please fill the form for more details, we will reach you back soon</h2><br>
+        <p></p>
+    </div>
+
+    <div class="contacts-form">
+
+       <form class="contact-form" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+           <p>Name</p>
+           <input type="text" name="name" class="contact-input" value="{{ form.name.value|default_if_none:'' }}" required><br>
+
+           {% if form.name.errors %}
+
+           {% for error in form.name.errors %}
+
+              <p style="color: red;">{{ error }}. </p>
+    
+              {% endfor %}
+    
+             
+
+           <br>
+
+           {% endif %}
+           
+
+            <p>Age</p>
+           <input type="number" name="age" class="contact-input" value="{{ form.age.value|default_if_none:'' }}" required><br>
+                
+           {% if form.age.errors %}
+
+           {% for error in form.age.errors %}
+
+              <p style="color: red;">{{ error }}. </p>
+    
+              {% endfor %}
+    
+             
+
+           <br>
+
+           {% endif %}
+ 
+
+
+           <p>gender</p>
+           
+<select id="country" name="gender" class="contact-input">
+  
+  <option value="male" selected>Male</option>
+  <option value="female">Female</option>
+ 
+</select><br>
+
+
+
+              {% if form.gender.errors %}
+
+           {% for error in form.gender.errors %}
+
+              <p style="color: red;">{{ error }}. </p>
+    
+              {% endfor %}
+    
+             
+
+           <br>
+
+           {% endif %}
+
+
+
+           <p>Mobile number</p>
+           <input type="tel" name="mobile" pattern="[0-9]{10}" class="contact-input" value="{{ form.mobile.value|default_if_none:'' }}" required>
+
+             {% if form.mobile.errors %}
+
+           {% for error in form.mobile.errors %}
+
+              <p style="color: red;">{{ error }}. </p>
+    
+              {% endfor %}
+    
+             
+
+           <br>
+
+           {% endif %}
+
+
+           <p>Email</p>
+           <input type="email" name="email" class="contact-input" value="{{ form.email.value|default_if_none:'' }}" required><br>
+
+
+           {% if form.email.errors %}
+
+           {% for error in form.email.errors %}
+
+              <p style="color: red;">{{ error }}. </p>
+    
+              {% endfor %}
+    
+             
+
+           <br>
+
+           {% endif %}
+
+
+
+
+           <p>Collage</p>
+           <input type="text" name="collage" class="contact-input" value="{{ form.collage.value|default_if_none:'' }}" required><br>
+
+             
+           {% if form.collage.errors %}
+
+           {% for error in form.collage.errors %}
+
+              <p style="color: red;">{{ error }}. </p>
+    
+              {% endfor %}
+    
+             
+
+           <br>
+
+           {% endif %}
+
+
+
+
+
+            <p>Department</p>
+           <input type="text" name="dept" class="contact-input" value="{{ form.dept.value|default_if_none:'' }}" required><br>
+
+              
+           {% if form.dept.errors %}
+
+           {% for error in form.dept.errors %}
+
+              <p style="color: red;">{{ error }}. </p>
+    
+              {% endfor %}
+    
+             
+
+           <br>
+
+           {% endif %}
+
+
+
+            <p>Year</p>
+           <input type="number" name="year" class="contact-input" value="{{ form.year.value|default_if_none:'' }}" required><br><br>
+
+           {% if form.year.errors %}
+
+           {% for error in form.year.errors %}
+
+              <p style="color: red;">{{ error }}. </p>
+    
+              {% endfor %}
+    
+             
+
+           <br>
+
+           {% endif %}
+
+
+           <p>upload college id (supported formats pdf)</p>
+           <input type="file" name="collageid" class="contact-input" required> <br><br>
+
+
+             {% if form.collageid.errors %}
+
+           {% for error in form.collageid.errors %}
+
+              <p style="color: red;">{{ error }}. </p>
+    
+              {% endfor %}
+    
+             
+
+           <br>
+
+           {% endif %}
+
+
+
+           <p>upload government id (supported formats pdf)</p>
+           <input type="file" name="govid" class="contact-input" required> <br><br>
+
+           {% if form.govid.errors %}
+
+           {% for error in form.govid.errors %}
+
+              <p style="color: red;">{{ error }}. </p>
+    
+              {% endfor %}
+    
+             
+
+           <br>
+
+           {% endif %}
+
+
+
+           <p>upload resume (must be in specified form only) (supported file format pdf)</p>
+              <input type="file" name="resume" class="contact-input" required> <br>
+
+
+              {% if form.resume.errors %}
+
+           {% for error in form.resume.errors %}
+
+              <p style="color: red;">{{ error }}. </p>
+    
+              {% endfor %}
+    
+             
+
+           <br>
+
+           {% endif %}
+
+
+
+
+<!-- 
+           <p>message</p>
+           <textarea name="message" id="" class="textarea-input"></textarea><br>-->
+           <input type="text" name="internship" value="{{ internship.name }}" style="display: none;"> 
+
+
+           
+           
+
+
+
+          
+            {% if form.non_field_errors %}
+
+           <br>
+            
+               {% for error in form.non_field_errors %}
+
+                <p style="color: red;">{{ error }}. </p>
+    
+                {% endfor %}
+              
+           
+           <br>
+
+
+
+           {% endif %}
+
+
+           <button type="submit" name="submit" class="contact-submit"> Submit</button>
+
+
+
+
+       </form>
+
+    </div>
+
+
+
+</div> 
+
+
+
+
+
+
+{% endblock %}

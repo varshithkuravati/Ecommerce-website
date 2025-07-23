@@ -1,0 +1,395 @@
+
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+   
+
+
+
+
+
+ <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- SEO Meta Tags -->
+  <title>{% block title %} {% endblock %} | BotPulse Technosol | Drone Solutions & AI Services</title>
+  <meta name="description" content="{% block description %} {% endblock %}  BotPulse Technosol offers advanced drone technology, AI-based solutions, and custom embedded services for agriculture, surveillance, and industrial automation." />
+  <meta name="keywords" content="BotPulse, drones, AI solutions, agriculture drones, surveillance drones, embedded systems, tech startup, India" />
+  <meta name="author" content="BotPulse Technosol" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph (Social Media Preview) -->
+  <meta property="og:title" content="{% block title1 %} {% endblock %} | BotPulse Technosol | Drone & AI Solutions" />
+  <meta property="og:description" content="{% block description1 %} {% endblock %} Explore cutting-edge drone services and AI innovations with BotPulse Technosol." />
+  <meta property="og:image" content="https://botpulsetechnosol.in/logo.jpg" />
+  <meta property="og:url" content="https://botpulsetechnosol.in" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{% block title2 %} {% endblock %} | BotPulse Technosol" />
+  <meta name="twitter:description" content="{% block description3 %} {% endblock %} Drone and AI services tailored for modern industries." />
+  <meta name="twitter:image" content="https://botpulsetechnosol.in/logo.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="{% static 'images/logo.jpg' %}" type="image/x-icon" />
+
+
+
+
+<link rel="stylesheet" href="{% static 'style.css' %}">
+
+<!--<base href="http://localhost/prj/">-->
+</head>
+<body>
+
+
+
+    <!-- nav bar starts -->
+    <div class="nav">
+
+        
+
+   <div class="nav1">
+      
+    <ul class="ul1">
+
+
+
+
+       <li class="li1">
+  
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M352 256c0 22.2-1.2 43.6-3.3 64l-185.3 0c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64l185.3 0c2.2 20.4 3.3 41.8 3.3 64zm28.8-64l123.1 0c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64l-123.1 0c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32l-116.7 0c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0l-176.6 0c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 20.9 58.2 27 94.7zm-209 0L18.6 160C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192l123.1 0c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64L8.1 320C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6l176.6 0c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352l116.7 0zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6l116.7 0z" fill="white"/></svg>
+        <span>carriers</span>
+
+       
+       </li>
+
+
+       <li class="li1" id="li2">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M256 48C141.1 48 48 141.1 48 256l0 40c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-40C0 114.6 114.6 0 256 0S512 114.6 512 256l0 144.1c0 48.6-39.4 88-88.1 88L313.6 488c-8.3 14.3-23.8 24-41.6 24l-32 0c-26.5 0-48-21.5-48-48s21.5-48 48-48l32 0c17.8 0 33.3 9.7 41.6 24l110.4 .1c22.1 0 40-17.9 40-40L464 256c0-114.9-93.1-208-208-208zM144 208l16 0c17.7 0 32 14.3 32 32l0 112c0 17.7-14.3 32-32 32l-16 0c-35.3 0-64-28.7-64-64l0-48c0-35.3 28.7-64 64-64zm224 0c35.3 0 64 28.7 64 64l0 48c0 35.3-28.7 64-64 64l-16 0c-17.7 0-32-14.3-32-32l0-112c0-17.7 14.3-32 32-32l16 0z" fill="white"/></svg>
+        
+        <span><a href="">support and community</a></span>
+         
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" fill="white" / ></svg>
+           
+        <ul class="ul2" >
+
+        <a href="{% url 'bot:contactus' %}" style="color: black;">   <li class="li2">contact us</li></a> 
+           
+
+        </ul>
+    
+    </li>
+    
+    </ul>
+
+   </div>
+   
+   <hr>
+
+
+   <div class="nav2">
+
+
+
+<!-- logo -->
+ 
+<div class="im">
+<a href="/"> <img src="{% static 'images/logo.jpg' %}" alt="" id="logo"></a>
+</div>
+
+<div class="space">
+
+   
+</div>
+
+
+<div class="menu">
+
+<ul class="ul3">
+
+
+    <li class="li3">
+       <a href="{% url 'bot:index' %}"> <h3>Home </h3> </a>
+    </li>
+
+ 
+    <li class="li3" id="solutions-link">
+
+        <h3>Services <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" fill="white" / ></svg>
+        </h3> 
+
+        <ul class="solutions-list" >
+
+    
+{% for service in services %}
+
+
+<a href="{% url 'bot:service' service.slug %}">
+<li class="li2"> {{ service.name }} </li>
+</a>
+
+
+
+{% endfor %}
+
+
+
+            
+
+        </ul>
+
+    </li>
+       
+   
+
+     <a href="/#internship">
+    <li class="li3">
+
+         <h3>Internships </h3> 
+
+    </li> </a>
+
+     <a href="{% url 'bot:aboutus' %}">
+    <li class="li3">
+
+         <h3>About Us </h3> 
+
+    </li> </a>
+
+
+
+    <!-- <a href="contactUs.php"> <li class="li3">
+
+         <h3>Contact Us </h3> 
+
+    </li> </a> -->
+
+    <li class="li3" id="more-link">
+
+        <h3>More <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" fill="white" / ></svg>
+        </h3> 
+
+        <ul class="more-list" >
+           <a href="{% url 'bot:contactus' %}"> <li class="li2">contact Us</li></a>
+           <a href="{% url 'bot:p&p' %}"> <li class="li2">privacy & policy</li></a>
+           <a href="{% url 'bot:t&c' %}"> <li class="li2">terms & conditions</li></a>
+           <a href="{% url 'bot:index' %}"> <li class="li2">site-map</li></a>
+
+        </ul>
+
+    </li>
+
+</ul>
+
+
+</div>
+
+
+
+<div class="mobile-menu">
+
+ <a href="javascript:void(0)" onclick="toggleDiv()">   <svg class="menu-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" fill="white"/></svg>
+</a>
+
+    <div class="mm-list" id="mm-list">
+
+
+        <a href="/" class="mm-link">Home</a>
+        <!-- <a href="" class="mm-link">Products</a> -->
+        <a href="/#service" class="mm-link">Services</a>
+        <a href="/#internship" class="mm-link">Internship</a>
+        <a href="{% url 'bot:aboutus' %}" class="mm-link">About us</a>
+        <a href="{% url 'bot:contactus' %}" class="mm-link">Contact Us</a>
+        <a href="{% url 'bot:t&c' %}" class="mm-link">T & C</a>
+        <a href="{% url 'bot:p&p' %}" class="mm-link" >Privacy & Policy</a>
+
+
+
+
+    </div>
+
+
+</div>
+
+
+
+   </div>
+
+
+
+
+
+
+    </div>
+
+
+
+    <script>
+  function toggleDiv() {
+    const box = document.getElementById('mm-list');
+    if (box.style.display === 'none' || box.style.display === '') {
+      box.style.display = 'block';
+    } else {
+      box.style.display = 'none';
+    }
+  }
+</script>
+
+
+<!-- nav bar ends  -->
+
+
+<!-- body starts -->
+
+
+
+
+{% block body %}
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+  
+
+
+<!-- body ends -->
+
+   
+
+    <!-- footer starts  -->
+
+  
+    <footer>
+
+  
+    <a href="../"><img src="{% static 'images/footer-logo.jpg' %}" alt="" class="footer-img"></a> 
+
+
+   <div class="ft-links">
+
+
+    <div class="intro box-2">
+
+        <h2>Botpulse Technosol</h2><br>
+
+        <p>
+            Shaping the future of drone technology with innovative solutions for agriculture, logistics, surveillance, and disaster management.
+        </p>
+
+
+    </div>
+
+    <div class="links box-2">
+  
+        <h2>Quick links</h2>
+     <a href="{% url 'bot:index' %}" class="ft-link">Home</a>
+     <a href="../#ach" class="ft-link">Achievements</a>
+     <a href="../#internship" class="ft-link">Internship</a>
+     <a href="{% url 'bot:aboutus' %}" class="ft-link">About us</a>
+     <!-- <a href="" class="ft-link">Services</a> -->
+     <a href="{% url 'bot:contactus' %}" class="ft-link">Contact Us</a>
+     <a href="{% url 'bot:t&c' %}" class="ft-link">Terms & Conditions</a>
+     <a href="{% url 'bot:p&p' %}" class="ft-link">Privacy & Policy</a>
+     <a href="{% url 'bot:index' %}" class="ft-link">Sitemap</a>
+
+    </div>
+
+    <div class="services box-2">
+
+        <h2>Services</h2>
+
+     
+
+ {% for service in services %}
+
+       <a href="{% url 'bot:service' service.slug %}"  class="ft-link">{{ service.name }}</a>
+      <!-- <a href="" class="ft-link">Logistics Solutions</a>
+     <a href="" class="ft-link">Surveillance Systems</a>
+     <a href="" class="ft-link">Disaster Management</a>
+   <a href="" class="ft-link">Custom Development</a> -->
+
+
+
+   {% endfor %}
+
+
+ 
+
+    </div>
+
+    <div class="contact box-2">
+
+        <h2>Contact Info</h2>
+        <br>
+
+        <p>
+            Bengaluru, India</p>
+            
+           <p>Email: info.botpulsetechnosol@gmail.com</p> 
+            
+          
+
+        
+        <div class="social">
+
+            <a href=""><svg class="social-links" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" fill="white"/></svg>
+</a>
+
+          <a href=""> <svg class="social-links" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z" fill="white"/></svg>
+       </a> 
+           <a href=""> <svg class="social-links" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" fill="white"/></svg>
+       </a>
+            
+        </div>
+
+
+    </div>
+
+
+   </div>
+
+
+   <br>
+   <br>
+
+   <div class="copyright" style="text-align: center;">
+
+   <p>All rights reserved © {% now "Y" %} Botpulse Technosol</p>
+   </div>
+
+
+
+    </footer>
+
+
+    <!-- footer ends  -->
+
+
+
+    
+<script>
+
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+  {% extends 'shop/base.html' %}
+
+ 
+
+{% load static %}
+
+ {% block title %} Success | page  {% endblock %}
+
+
+
+
+
+
+
+
+{% block body %}
+    
+    <!-- <div class="breadcrumbs">
+        <a href="#">Home</a>
+        <span>/</span>
+        <a href="#">Your Cart</a>
+    </div> -->
+
+
+
+    <!-- Success Page (hidden by default) -->
+    <div class="success-message" id="success-page">
+        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+        <h2 class="success-title">Order Confirmed!</h2>
+        <p class="success-text">Thank you for your purchase. Your order has been received and is being processed.</p>
+        
+        <div class="order-details">
+            <div class="order-detail">
+                <span>Order Number</span>
+                <span>{{ order_id }}</span>
+            </div>
+            <div class="order-detail">
+                <span>Date</span>
+                <span>{{ date }}</span>
+            </div>
+            <div class="order-detail">
+                <span>Total</span>
+                <span>${{ total }}</span>
+            </div>
+            <!-- <div class="order-detail">
+                <span>Payment Method</span>
+                <span>Visa ending in 4242</span>
+            </div> -->
+        </div>
+        
+        <a href="{% url 'shop:index' %}" class="btn" style="max-width: 300px; margin: 0 auto;">Continue Shopping</a>
+    </div>
+
+      
+    
+
+    <script>
+        // Quantity controls
+        function updateQuantity(button, change) {
+            const input = button.parentElement.querySelector('.quantity-input');
+            let value = parseInt(input.value) + change;
+            if (value < 1) value = 1;
+            input.value = value;
+            updateCartTotal();
+        }
+        
+        function updateQuantityInput(input) {
+            if (input.value < 1) input.value = 1;
+            updateCartTotal();
+        }
+        
+        // Remove item from cart
+        function removeItem(element) {
+            const cartItem = element.closest('.cart-item');
+            cartItem.remove();
+            updateCartCount();
+            updateCartTotal();
+            
+            // Show empty cart if no items left
+            if (document.querySelectorAll('.cart-item').length === 0) {
+                showEmptyCart();
+            }
+        }
+        
+        // Update cart count in header
+        function updateCartCount() {
+            const count = document.querySelectorAll('.cart-item').length;
+            document.querySelector('.cart-count').textContent = count;
+            document.querySelector('.cart-count-text').textContent = count + (count === 1 ? ' item' : ' items');
+        }
+        
+        // Update cart totals
+        function updateCartTotal() {
+            // This would be more complex in a real app
+            console.log('Update totals would happen here');
+        }
+        
+        // Show empty cart message
+        function showEmptyCart() {
+            const cartItems = document.querySelector('.cart-items');
+            cartItems.innerHTML = `
+                <div class="empty-cart">
+                    <div class="empty-cart-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3 class="empty-cart-title">Your cart is empty</h3>
+                    <p class="empty-cart-text">Looks like you haven't added anything to your cart yet. Start shopping to find amazing products!</p>
+                    <a href="#" class="btn">Continue Shopping</a>
+                </div>
+            `;
+        }
+        
+        // Page navigation functions
+        function showCheckout() {
+            document.getElementById('cart-page').style.display = 'none';
+            document.getElementById('checkout-page').style.display = 'grid';
+            window.scrollTo(0, 0);
+        }
+        
+        function showCart() {
+            document.getElementById('cart-page').style.display = 'grid';
+            document.getElementById('checkout-page').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+        
+        function showSuccess() {
+            document.getElementById('checkout-page').style.display = 'none';
+            document.getElementById('success-page').style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            // In a real app, you would submit the form here
+        }
+        
+        // Payment method selection
+        function selectPayment(element) {
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            
+            // Show/hide credit card form based on selection
+            const paymentType = element.querySelector('.payment-title').textContent;
+            const cardForm = document.getElementById('credit-card-form');
+            
+            if (paymentType === 'Credit Card') {
+                cardForm.style.display = 'block';
+            } else {
+                cardForm.style.display = 'none';
+            }
+        }
+
+
+
+
+       
+
+
+    </script>
+
+{% endblock %}

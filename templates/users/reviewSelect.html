@@ -1,0 +1,297 @@
+ {% extends 'shop/base.html' %}
+
+
+
+
+{% load static %}
+
+ {% block title %} Review | page  {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+{% block style %}
+
+    <style>
+        :root {
+            /* --card-bg: #000000;
+            --dark-bg: #000000;
+            --darker-bg: #000000;
+            --border-color: #000000;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --accent: #6d28d9; */
+            --star-active: #ffc107;
+            --star-inactive: #e4e5e9;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--dark-bg);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .review-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .product-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            object-fit: cover;
+            margin-right: 1.5rem;
+            background-color: var(--darker-bg);
+        }
+        
+        .product-info h2 {
+            font-size: 1.25rem;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .product-info p {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+        
+        .review-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .rating-section {
+            margin-bottom: 2rem;
+        }
+        
+        .rating-title {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .star {
+            font-size: 1.8rem;
+            color: var(--star-inactive);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .star.active, .star:hover {
+            color: var(--star-active);
+        }
+        
+        .rating-hint {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(109, 40, 217, 0.1);
+        }
+        
+        .photo-upload {
+            margin-top: 1rem;
+        }
+        
+        .upload-label {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--dark-bg);
+            border: 1px dashed var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .upload-label:hover {
+            border-color: var(--accent);
+            background-color: rgba(109, 40, 217, 0.05);
+        }
+        
+        .upload-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .upload-thumbnail {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            object-fit: cover;
+            position: relative;
+        }
+        
+        .remove-image {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        
+        .submit-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .recommend-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .recommend-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .radio-input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .review-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .product-image {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+
+    {% endblock %}
+
+
+{% block body %}
+
+
+    <div class="review-container">
+        
+
+            {% for item in order_items %}
+
+            <a href="{% url 'users:review' id=item.pk %}">
+
+
+              <div class="review-header">
+            {% for image in item.product.images.all|slice:":1" %}
+
+            <img src="{{ image.image.url }}" alt="Product" class="product-image">
+
+            {% endfor %}
+
+
+            <div class="product-info">
+                <h2>{{ item.product.name }}</h2>
+                <p>Color: {{ item.color }} | Size: {{ item.size }}</p>
+            </div>
+             </div>
+            
+            </a>
+
+
+
+            {% endfor %}
+
+            
+
+
+            
+
+
+       
+        
+        
+        
+        
+    </div>
+
+    <script>
+        // Star Rating System
+        
+    
+    </script>
+
+{% endblock %}

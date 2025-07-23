@@ -1,0 +1,80 @@
+
+
+{% extends 'users/base.html' %}
+
+
+{% block head_title %}profile update{% endblock head_title %}
+
+{% block content %}
+
+<h1>update profile</h1>
+
+<form action="" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+
+
+<br>
+
+{{ form.email.label_tag }}
+
+<input type="email" name = "email" id="id_username" value = '{{ form.username.value|default:user.email}}'>
+
+{% if form.email.errors %}
+
+<p style="color: red;">{{ form.email.errors }}</p>
+
+{% endif %}
+
+
+<br>
+
+{{ form.name.label_tag }}
+
+<input type="text" name="name" id="id_about" value = '{{ form.name.value|default:profile.name}}'>
+
+{% if form.name.errors %}
+
+<p style="color: red;">{{ form.name.errors }}</p>
+
+{% endif %}
+
+
+<br>
+
+{{ form.phonenum.label_tag }}
+
+<input type="phone" name="phonenum" id="id_photo" value = '{{ form.photo.value|default:profile.phonenum}}'>
+
+{% if form.phonenum.errors %}
+
+<p style="color: red;">{{ form.phonenum.errors }}</p>
+
+{% endif %}
+
+ {% if form.non_field_errors %}
+
+           <br>
+            
+               {% for error in form.non_field_errors %}
+
+                <p style="color: red;">{{ error }}. </p>
+    
+                {% endfor %}
+              
+           
+           <br>
+
+
+
+           {% endif %}
+
+
+<button type="submit">update profile</button>
+
+
+</form>
+
+
+{% endblock content %}

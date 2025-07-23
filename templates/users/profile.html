@@ -1,0 +1,385 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Nexus</title>
+    <link rel="stylesheet" href="{% static 'style1.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+     
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Nex<span>us</span></div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">Orders</a></li>
+                <li><a href="#">Account</a></li>
+            </ul>
+        </nav>
+        <div class="header-icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-user"></i>
+            <div class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">2</span>
+            </div>
+        </div>
+    </header>
+    
+    <div class="breadcrumbs">
+        <a href="#">Home</a>
+        <span>/</span>
+        <a href="#">Account</a>
+        <span>/</span>
+        <span>Profile</span>
+    </div>
+    
+    <div class="profile-container">
+        <div class="profile-sidebar">
+            <div class="profile-info">
+                <div class="profile-avatar">JD</div>
+                <div class="profile-name">John Doe</div>
+                <div class="profile-email">john.doe@example.com</div>
+            </div>
+            
+            <ul class="profile-menu">
+                <li><a href="#" class="active"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="#"><i class="fas fa-box"></i> Orders</a></li>
+                <li><a href="#"><i class="fas fa-map-marker-alt"></i> Addresses</a></li>
+                <li><a href="#"><i class="fas fa-heart"></i> Wishlist</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+        
+        <div class="profile-content">
+            <div class="profile-header">
+                <h1 class="profile-title">My Profile</h1>
+                <button class="btn">Save Changes</button>
+            </div>
+            
+            <div class="profile-section">
+                <h2 class="section-title">Personal Information</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first-name" class="form-label">First Name</label>
+                        <input type="text" id="first-name" class="form-input" value="John">
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name" class="form-label">Last Name</label>
+                        <input type="text" id="last-name" class="form-input" value="Doe">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-input" value="john.doe@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone" class="form-input" value="(123) 456-7890">
+                </div>
+            </div>
+            
+            <div class="profile-section">
+                <div class="profile-header">
+                    <h2 class="section-title">Address Book</h2>
+                    <button class="btn" id="addAddressBtn">Add New Address</button>
+                </div>
+                
+                <div class="address-grid">
+                    <!-- Default Address -->
+                    <div class="address-card default">
+                        <span class="address-default">DEFAULT</span>
+                        <div class="address-name">John Doe</div>
+                        <div class="address-details">
+                            123 Main Street<br>
+                            Apartment 4B<br>
+                            New York, NY 10001<br>
+                            United States<br>
+                            Phone: (123) 456-7890
+                        </div>
+                        <div class="address-actions">
+                            <button class="btn btn-outline">Edit</button>
+                            <button class="btn">Remove</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Address -->
+                    <div class="address-card">
+                        <div class="address-name">John Doe (Work)</div>
+                        <div class="address-details">
+                            456 Business Ave<br>
+                            Suite 200<br>
+                            New York, NY 10005<br>
+                            United States<br>
+                            Phone: (123) 456-7891
+                        </div>
+                        <div class="address-actions">
+                            <button class="btn btn-outline">Edit</button>
+                            <button class="btn">Set as Default</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Add New Address Card -->
+                    <div class="add-address" id="addAddressCard">
+                        <i class="fas fa-plus"></i>
+                        <div class="add-address-text">Add New Address</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Address Form (hidden by default) -->
+            <div class="profile-section" id="addressForm" style="display: none;">
+                <h2 class="section-title">Add New Address</h2>
+                <div class="form-group">
+                    <label for="address-title" class="form-label">Address Title</label>
+                    <input type="text" id="address-title" class="form-input" placeholder="Home, Work, etc.">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first-name-address" class="form-label">First Name</label>
+                        <input type="text" id="first-name-address" class="form-input" placeholder="John">
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name-address" class="form-label">Last Name</label>
+                        <input type="text" id="last-name-address" class="form-input" placeholder="Doe">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" id="address" class="form-input" placeholder="Street address">
+                </div>
+                <div class="form-group">
+                    <label for="address2" class="form-label">Apartment, suite, etc. (optional)</label>
+                    <input type="text" id="address2" class="form-input" placeholder="Apartment, suite, etc.">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" id="city" class="form-input" placeholder="City">
+                    </div>
+                    <div class="form-group">
+                        <label for="country" class="form-label">Country</label>
+                        <select id="country" class="form-input">
+                            <option value="">Select country</option>
+                            <option value="US" selected>United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="UK">United Kingdom</option>
+                            <!-- More countries -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="state" class="form-label">State/Province</label>
+                        <input type="text" id="state" class="form-input" placeholder="State/Province">
+                    </div>
+                    <div class="form-group">
+                        <label for="zip" class="form-label">ZIP/Postal code</label>
+                        <input type="text" id="zip" class="form-input" placeholder="ZIP/Postal code">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone-address" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone-address" class="form-input" placeholder="Phone number">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="default-address"> Set as default address
+                    </label>
+                </div>
+                <div class="form-group" style="display: flex; gap: 1rem;">
+                    <button type="button" class="btn">Save Address</button>
+                    <button type="button" class="btn btn-outline" id="cancelAddressBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-col">
+            <h3>Shop</h3>
+            <ul>
+                <li><a href="#">All Products</a></li>
+                <li><a href="#">Featured</a></li>
+                <li><a href="#">New Arrivals</a></li>
+                <li><a href="#">Sale Items</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>About</h3>
+            <ul>
+                <li><a href="#">Our Story</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Press</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Help</h3>
+            <ul>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Shipping & Returns</a></li>
+                <li><a href="#">Size Guide</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+            </div>
+            <div class="newsletter">
+                <h4>Subscribe to our newsletter</h4>
+                <form>
+                    <input type="email" placeholder="Your email address">
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </footer>
+    
+    <div class="footer-bottom">
+        <div class="copyright">
+            &copy; 2023 Nexus. All rights reserved.
+        </div>
+        <div class="legal-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
+        </div>
+    </div>
+
+
+
+       <script>
+    // Toggle Address Form Visibility
+    const addAddressBtn = document.getElementById('addAddressBtn');
+    const addAddressCard = document.getElementById('addAddressCard');
+    const addressForm = document.getElementById('addressForm');
+    const cancelAddressBtn = document.getElementById('cancelAddressBtn');
+
+    // Show address form when either button or card is clicked
+    [addAddressBtn, addAddressCard].forEach(element => {
+        element.addEventListener('click', () => {
+            addressForm.style.display = 'block';
+            // Scroll to form for better UX
+            addressForm.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    // Hide address form when cancel is clicked
+    cancelAddressBtn.addEventListener('click', () => {
+        addressForm.style.display = 'none';
+    });
+
+    // Set default address functionality
+    document.querySelectorAll('.address-actions .btn').forEach(button => {
+        if (button.textContent === 'Set as Default') {
+            button.addEventListener('click', function() {
+                // Remove default class from all addresses
+                document.querySelectorAll('.address-card').forEach(card => {
+                    card.classList.remove('default');
+                });
+                
+                // Add default class to this address
+                const addressCard = this.closest('.address-card');
+                addressCard.classList.add('default');
+                
+                // Update button text
+                this.textContent = 'Default';
+                this.disabled = true;
+                
+                // Add default badge if it doesn't exist
+                if (!addressCard.querySelector('.address-default')) {
+                    const defaultBadge = document.createElement('span');
+                    defaultBadge.className = 'address-default';
+                    defaultBadge.textContent = 'DEFAULT';
+                    addressCard.prepend(defaultBadge);
+                }
+            });
+        }
+    });
+
+    // Form validation for personal information
+    const saveChangesBtn = document.querySelector('.profile-header .btn');
+    saveChangesBtn.addEventListener('click', function() {
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+
+        if (!firstName || !lastName || !email || !phone) {
+            alert('Please fill in all required fields');
+            return;
+        }
+
+        // Simple email validation
+        if (!email.includes('@') || !email.includes('.')) {
+            alert('Please enter a valid email address');
+            return;
+        }
+
+        // Simple phone validation
+        if (phone.replace(/\D/g, '').length < 10) {
+            alert('Please enter a valid phone number');
+            return;
+        }
+
+        // If all validations pass
+        alert('Profile updated successfully!');
+        // In a real app, you would submit the form to a server here
+    });
+
+    // Form validation for address form
+    document.querySelector('#addressForm .btn').addEventListener('click', function() {
+        const requiredFields = [
+            'address-title', 'first-name-address', 'last-name-address',
+            'address', 'city', 'country', 'state', 'zip', 'phone-address'
+        ];
+
+        for (const fieldId of requiredFields) {
+            const field = document.getElementById(fieldId);
+            if (!field.value) {
+                alert(`Please fill in the ${field.placeholder || fieldId} field`);
+                field.focus();
+                return;
+            }
+        }
+
+        // If all validations pass
+        alert('Address added successfully!');
+        addressForm.style.display = 'none';
+        // In a real app, you would submit the form and update the UI with the new address
+    });
+
+    // Responsive menu toggle for mobile (if needed)
+    const menuToggle = document.createElement('div');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    document.querySelector('header').appendChild(menuToggle);
+
+    menuToggle.addEventListener('click', function() {
+        document.querySelector('nav').classList.toggle('active');
+    });
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,500 @@
+
+{% extends 'shop/base.html' %}
+
+{% load custom_tags %}
+
+{% load static %}
+ 
+
+
+
+
+
+ {% block title %} My Orders | page  {% endblock %}
+
+
+
+
+
+
+
+
+
+
+    {% block style %}
+    <style>
+
+        
+.account-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+        
+        .account-sidebar {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: fit-content;
+            position: sticky;
+            top: 30px;
+        }
+        
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            background-color: var(--darker-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--accent);
+        }
+        
+        .profile-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        
+        .profile-email {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .account-menu {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .account-menu li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .account-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .account-menu a:hover, .account-menu a.active {
+            background-color: rgba(109, 40, 217, 0.1);
+            color: var(--accent);
+        }
+        
+        .account-menu a i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .account-content {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+        
+        /* Profile Section Styles */
+        .profile-section {
+            display: block; /* Will be toggled by JS */
+        }
+        
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        /* Orders Section Styles */
+        .orders-section {
+            display: none; /* Hidden by default */
+        }
+        
+        .orders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .order-card {
+            background-color: var(--dark-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+        
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .order-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .order-preview {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .order-preview-images {
+            display: flex;
+        }
+        
+        .order-preview-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+            background-color: var(--darker-bg);
+        }
+        
+        .order-preview-img:not(:first-child) {
+            margin-left: -15px;
+        }
+        
+        .order-preview-count {
+            width: 50px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: -15px;
+        }
+        
+        .btn {
+            padding: 0.6rem 1.2rem;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        .status-delivered {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-shipped {
+            background-color: rgba(13, 110, 253, 0.1);
+            color: #0d6efd;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 1024px) {
+            .account-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .account-sidebar {
+                position: static;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .order-summary {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .order-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+
+
+{% endblock %}
+
+
+ 
+{% block body %}
+
+    <!-- Header would be the same as your profile page -->
+
+
+    
+    <div class="account-container">
+        <div class="account-sidebar">
+            <div class="profile-info">
+                <div class="profile-avatar">{{ profile.name|slice:":1"|upper }}{{ profile.name|slice:"-1:"|upper }}</div>
+
+                <div class="profile-name">{{ profile.name }}</div>
+                
+            </div>
+            
+            <ul class="account-menu">
+                <li><a href="#" class="active" data-section="profile"><i class="fas fa-user"></i> Profile</a></li>
+                <li><a href="#" data-section="orders"><i class="fas fa-box"></i> Orders</a></li>
+                <li><a href="{% url 'users:logout' %}"><i class="fas fa-box"></i> Logout</a></li>
+               
+            </ul>
+        </div>
+        
+        <div class="account-content">
+            <!-- Profile Section -->
+            <section class="profile-section" id="profile-section">
+
+                <form action="" method="post">
+
+                    {% csrf_token %}
+                <div class="profile-header">
+                    <h1 class="section-title">My Profile</h1>
+                    <button class="btn" type="submit">Save Changes</button>
+                </div>
+
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first-name" class="form-label">Name</label>
+                        <input type="text" name="name" id="first-name" class="form-input" value = '{{ form.name.value|default:profile.name}}'>
+                    </div>
+
+                    {% if form.name.errors %}
+
+                     <p style="color: red;">{{ form.name.errors }}</p>
+
+                    {% endif %}
+                    
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" class="form-input" value = '{{ form.username.value|default:user.email}}'>
+                </div>
+
+                        {% if form.email.errors %}
+
+                        <p style="color: red;">{{ form.email.errors }}</p>
+
+                       {% endif %}
+
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" class="form-input" value = '{{ form.photo.value|default:profile.phonenum}}'>
+                </div>
+
+                {% if form.phonenum.errors %}
+
+                <p style="color: red;">{{ form.phonenum.errors }}</p>
+
+                 {% endif %}
+
+
+
+
+
+                  {% if form.non_field_errors %}
+
+           <br>
+            
+               {% for error in form.non_field_errors %}
+
+                <p style="color: red;">{{ error }}. </p>
+    
+                {% endfor %}
+              
+           
+           <br>
+
+
+
+           {% endif %}
+
+                         </form>
+
+            </section>
+            
+            <!-- Orders Section -->
+            <section class="orders-section" id="orders-section">
+                <div class="orders-header">
+                    <h1 class="section-title">My Orders</h1>
+                    <div class="orders-filter">
+                       
+                    </div>
+                </div>
+
+
+                {% for order in user_orders %}
+                
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-id">Order: {{ order.order_id }}</div>
+                            <div class="order-date">Placed on {{ order.Odate }}</div>
+                        </div>
+
+                        {% if order.type == "cancel" %}
+
+                        <div class="status-delivered" style="background-color: rgba(239, 68, 68, 0.1);color: #ef4444;">{{ order.status }}</div>
+                        
+                       {% else %}
+
+                       <div class="status-delivered">{{ order.status }}</div>
+                        
+
+
+                       {% endif %}
+
+                    </div>
+                    
+                    <div class="order-summary">
+                        <div>
+                            <div class="order-total">Total: ${{ order.total }}</div>
+                            <div class="order-preview">
+                                <div class="order-preview-images">
+
+                                    {% for item in order.order_item.all|slice:":2" %}
+
+                                    {% for image in item.product.images.all|slice:":1" %}
+
+
+                                    <img src="{{ image.image.url }}" alt="Product" class="order-preview-img">
+
+                                    {% endfor %}
+
+                                    {% endfor %}
+
+                                    {% if  order.order_item.all|length > 2 %}
+
+                                    <img src="https://via.placeholder.com/100" alt="Product" class="order-preview-img">
+                                    <div class="order-preview-count">+{{ order.order_item.all|length|add:"-2" }}</div>
+
+                                    {% endif %}
+
+                                    
+
+
+
+                                </div>
+                                <div>{{ order.order_item.all|length }} item{% if order.order_item.all|length > 1 %}s {% endif %} </div>
+                            </div>
+                        </div>
+                        <div class="order-actions">
+
+                            {% if order.status == 'delivered' %}
+
+                            <a href="{% url 'users:review_select' id=order.pk %}"><button class="btn btn-outline">Review</button></a>
+
+                            {% endif %}
+
+                           
+                          <a href="{% url 'users:otracking' id=order.pk %}">  <button class="btn">Details</button> </a>
+                            <!-- <button class="btn btn-outline">Buy Again</button> -->
+                        </div>
+                    </div>
+                </div>
+
+
+                {% endfor %}
+
+
+
+
+                
+                
+            </section>
+            
+            <!-- Other sections (Addresses, Wishlist, Settings) would go here -->
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.account-menu a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.account-menu a').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Get the section to show
+                const sectionId = this.getAttribute('data-section');
+                
+                // Hide all sections
+                document.querySelectorAll('.account-content section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Show the selected section
+                if (sectionId) {
+                    document.getElementById(`${sectionId}-section`).style.display = 'block';
+                }
+            });
+        });
+        
+        // Initialize - show profile section by default
+        document.getElementById('profile-section').style.display = 'block';
+    </script>
+
+
+{% endblock %}

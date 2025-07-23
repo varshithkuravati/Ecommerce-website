@@ -1,0 +1,393 @@
+ {% extends 'shop/base.html' %}
+
+{% load static %}
+
+ {% block title %} Categories | page  {% endblock %}
+
+
+
+
+
+
+
+
+{% block body %}
+    
+    <div class="breadcrumbs">
+        <a href="{% url 'shop:index' %}">Home</a>
+        <span>/</span>
+        <a href="{% url 'shop:view_cart' %}">Your Cart</a>
+    </div>
+    
+    <!-- Cart Page -->
+    
+    
+    <!-- Checkout Page (hidden by default) -->
+    <div class="cart-container" id="checkout-page">
+        <form class="checkout-form" id="checkout-form">
+            <div class="form-section">
+
+
+                <!-- <h3 class="section-title">Contact Information</h3>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox"> Email me with news and offers
+                    </label>
+                </div> -->
+
+
+                
+                <h3 class="section-title" style="margin-top: 2rem;">Shipping Address</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first-name" class="form-label">Full Name</label>
+
+               
+                        <input type="text" id="first-name" name="name" class="form-input" value='{{ form.name.value|default:addressf.name }}' required>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="last-name" class="form-label">Last name</label>
+                        <input type="text" id="last-name" class="form-input" required>
+                    </div> -->
+                </div>
+                <div class="form-group">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" id="address" name="address" class="form-input" value='{{ form.address.value|default:addressf.address }}' required>
+                </div>
+                <div class="form-group">
+                    <label for="apartment" class="form-label">House Number</label>
+                    <input type="text" id="apartment" name="houseNo" class="form-input" value='{{ form.houseNo.value|default:addressf.houseNo }}' required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" id="city" name="city" class="form-input" value='{{ form.city.value|default:addressf.city }}' required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country" class="form-label">Country</label>
+                        <select id="country" class="form-input" name="country" value='{{ form.country.value|default:addressf.country }}' required>
+                            <option value="">Select country</option>
+                            <option value="US">United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="UK">United Kingdom</option>
+                            <!-- More countries -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="state" class="form-label">State</label>
+                        <input type="text" id="state" class="form-input" name="state" value='{{ form.state.value|default:addressf.state }}' required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zip" class="form-label">ZIP code</label>
+                        <input type="text" id="zip" class="form-input" name="pincode" value='{{ form.pincode.value|default:addressf.pincode }}' required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="tel" id="phone" class="form-input" name="phonenum" value='{{ form.phonenum.value|default:addressf.phonenum }}' required>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3 class="section-title">Payment Method</h3>
+                <div class="payment-methods">
+                    <!-- <div class="payment-method" onclick="selectPayment(this)">
+                        <div class="payment-icon"><i class="far fa-credit-card"></i></div>
+                        <div class="payment-text">
+                            <div class="payment-title">Credit Card</div>
+                            <div class="payment-desc">Pay with Visa, Mastercard, American Express</div>
+                        </div>
+                        <i class="fas fa-check"></i>
+                    </div>
+
+
+                    <div class="payment-method" onclick="selectPayment(this)">
+                        <div class="payment-icon"><i class="fab fa-paypal"></i></div>
+                        <div class="payment-text">
+                            <div class="payment-title">PayPal</div>
+                            <div class="payment-desc">Pay with your PayPal account</div>
+                        </div>
+                        <i class="fas fa-check"></i>
+                    </div> -->
+
+
+                    <div class="payment-method selected" onclick="selectPayment(this)">
+                        <div class="payment-icon"><i class="fas fa-wallet"></i></div>
+                        <div class="payment-text">
+                            <div class="payment-title">Stripe Pay</div>
+                            <div class="payment-desc">Pay with Stripe Payment Gateway</div>
+                        </div>
+                        <i class="fas fa-check"></i>
+                    </div>
+                </div>
+
+                <!-- directly pay with cart  -->
+                
+                <!-- <div id="credit-card-form">
+                    <div class="form-group">
+                        <label for="card-number" class="form-label">Card number</label>
+                        <input type="text" id="card-number" class="form-input" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-group">
+                        <label for="card-name" class="form-label">Name on card</label>
+                        <input type="text" id="card-name" class="form-input">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry" class="form-label">Expiry date</label>
+                            <input type="text" id="expiry" class="form-input" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" id="cvv" class="form-input" placeholder="123">
+                        </div>
+                    </div>
+                </div> -->
+                
+                <h3 class="section-title" style="margin-top: 2rem;">Order Review</h3>
+
+
+
+                 {% for item in items %}
+
+                <div class="order-review-item">
+
+
+                    {% for image in item.product.images.all|slice:":1" %}
+                    
+                    <img src="{{ image.image.url }}" alt="Ultra Boost Running Shoes" class="order-review-img">
+                   
+                   
+                    {% endfor %}
+
+                    <div class="order-review-details">
+                        <div class="order-review-title">{{ item.product.name }}</div>
+                        <div class="order-review-variant">{{ item.color }} / {{ item.size }} / quantity: {{ item.quantity }}</div>
+                    </div>
+                    <div class="order-review-price">{{ item.get_total }}</div>
+                </div>
+
+                {% endfor %}
+
+
+
+                <!-- <div class="order-review-item">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Wireless Headphones Pro" class="order-review-img">
+                    <div class="order-review-details">
+                        <div class="order-review-title">Wireless Headphones Pro</div>
+                        <div class="order-review-variant">Black</div>
+                    </div>
+                    <div class="order-review-price">$199.99</div>
+                </div>
+
+
+                <div class="order-review-item">
+                    <img src="https://images.unsplash.com/photo-1525904097878-94fb15835963?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Smart Watch Series 5" class="order-review-img">
+                    <div class="order-review-details">
+                        <div class="order-review-title">Smart Watch Series 5</div>
+                        <div class="order-review-variant">Silver / 42mm</div>
+                    </div>
+                    <div class="order-review-price">$249.99</div>
+                </div>
+                 -->
+                <div class="summary-row" style="margin-top: 1.5rem;">
+                    <span class="summary-label">Subtotal</span>
+                    <span class="summary-value">${{ products_total }}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Shipping</span>
+                    <span class="summary-value">${{ delivery }}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Discount</span>
+                    <span class="summary-value">${{ discount }}</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Tax</span>
+                    <span class="summary-value">${{ tax }}</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span class="summary-label">Total</span>
+                    <span class="summary-value">${{ total }}</span>
+                </div>
+
+                <input type="text" value="{{ discount }}" name="discount" style="display: none;"> 
+                <input type="text" value="{{ code }}" name="code" style="display: none;">
+                
+                <button type="submit" class="btn" onclick="">Complete Order</button>
+                <a href="{% url 'shop:view_cart' %}" class="btn btn-outline" onclick="">Back to Cart</a>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Success Page (hidden by default) -->
+    <div class="success-message" id="success-page" style="display: none;">
+        <div class="success-icon"><i class="fas fa-check-circle"></i></div>
+        <h2 class="success-title">Order Confirmed!</h2>
+        <p class="success-text">Thank you for your purchase. Your order has been received and is being processed. You will receive a confirmation email shortly.</p>
+        
+        <div class="order-details">
+            <div class="order-detail">
+                <span>Order Number</span>
+                <span>#NX-2023-4567</span>
+            </div>
+            <div class="order-detail">
+                <span>Date</span>
+                <span>June 15, 2023</span>
+            </div>
+            <div class="order-detail">
+                <span>Total</span>
+                <span>$647.97</span>
+            </div>
+            <div class="order-detail">
+                <span>Payment Method</span>
+                <span>Visa ending in 4242</span>
+            </div>
+        </div>
+        
+        <a href="#" class="btn" style="max-width: 300px; margin: 0 auto;">Continue Shopping</a>
+    </div>
+
+
+    
+    
+
+    <script>
+        // Quantity controls
+        function updateQuantity(button, change) {
+            const input = button.parentElement.querySelector('.quantity-input');
+            let value = parseInt(input.value) + change;
+            if (value < 1) value = 1;
+            input.value = value;
+            updateCartTotal();
+        }
+        
+        function updateQuantityInput(input) {
+            if (input.value < 1) input.value = 1;
+            updateCartTotal();
+        }
+        
+        // Remove item from cart
+        function removeItem(element) {
+            const cartItem = element.closest('.cart-item');
+            cartItem.remove();
+            updateCartCount();
+            updateCartTotal();
+            
+            // Show empty cart if no items left
+            if (document.querySelectorAll('.cart-item').length === 0) {
+                showEmptyCart();
+            }
+        }
+        
+        // Update cart count in header
+        function updateCartCount() {
+            const count = document.querySelectorAll('.cart-item').length;
+            document.querySelector('.cart-count').textContent = count;
+            document.querySelector('.cart-count-text').textContent = count + (count === 1 ? ' item' : ' items');
+        }
+        
+        // Update cart totals
+        function updateCartTotal() {
+            // This would be more complex in a real app
+            console.log('Update totals would happen here');
+        }
+        
+        // Show empty cart message
+        function showEmptyCart() {
+            const cartItems = document.querySelector('.cart-items');
+            cartItems.innerHTML = `
+                <div class="empty-cart">
+                    <div class="empty-cart-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <h3 class="empty-cart-title">Your cart is empty</h3>
+                    <p class="empty-cart-text">Looks like you haven't added anything to your cart yet. Start shopping to find amazing products!</p>
+                    <a href="#" class="btn">Continue Shopping</a>
+                </div>
+            `;
+        }
+        
+        // Page navigation functions
+        function showCheckout() {
+            // document.getElementById('cart-page').style.display = 'none';
+            document.getElementById('checkout-page').style.display = 'grid';
+            window.scrollTo(0, 0);
+        }
+        
+        function showCart() {
+            // document.getElementById('cart-page').style.display = 'grid';
+            document.getElementById('checkout-page').style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+        
+        function showSuccess() {
+            document.getElementById('checkout-page').style.display = 'none';
+            document.getElementById('success-page').style.display = 'block';
+            window.scrollTo(0, 0);
+            
+            // In a real app, you would submit the form here
+        }
+        
+        // Payment method selection
+        function selectPayment(element) {
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            
+            // Show/hide credit card form based on selection
+            const paymentType = element.querySelector('.payment-title').textContent;
+            const cardForm = document.getElementById('credit-card-form');
+            
+            if (paymentType === 'Credit Card') {
+                cardForm.style.display = 'block';
+            } else {
+                cardForm.style.display = 'none';
+            }
+        }
+
+
+
+
+        // for payment gateway 
+
+       document.getElementById('checkout-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+
+            const formdata = new FormData(this);
+
+            fetch("{% url 'users:orderPlace' %}",
+                {
+                    method: 'POST',
+                    body: formdata
+                }
+            )
+          .then(res => res.json())
+  .then(data => {
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      console.error("Stripe session creation failed:", data);
+      alert("Payment session creation failed. See console for details.");
+    }
+  })
+  .catch(err => {
+    console.error("Error during fetch:", err);
+    alert("Network or server error. See console for details.");
+  });
+});
+
+
+
+
+    </script>
+
+
+
+{% endblock %}
