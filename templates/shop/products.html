@@ -1,0 +1,100 @@
+ {% extends 'shop/base.html' %}
+
+
+
+
+
+
+ {% block title %}Products | Categories | page  {% endblock %}
+
+
+
+
+{% load static %}
+
+
+
+{% block body %}
+    
+    <br>
+    
+    
+
+    
+    
+    <h2 class="section-title">Featured Products</h2>
+    <div class="products">
+
+             
+        {% for product in products %}
+             
+         <a href="{% url 'shop:productDetail' product.slug %}">
+        <div class="product-card">
+
+            {% for image in product.images.all|slice:":1" %}
+
+            <img src="{{ image.image.url }}" alt="Product 1" class="product-img">
+           
+            {% endfor %}
+           
+            <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <div class="product-price">${{ product.price }}</div>
+                <button class="btn">Add to Cart</button>
+            </div>
+        </div>
+                </a>
+
+        {% endfor %}
+
+
+
+    
+
+
+      
+
+
+
+       
+    </div>
+
+    
+    
+    
+
+
+    <div class="pagination">
+
+            {% if products.has_previous %}
+
+            <a href="?page={{ products.previous_page_number }}">
+            <button class="page-btn prev" value="{{ products.previous_page_number }}"><i class="fas fa-chevron-left"></i></button> </a>
+
+
+             <a href="?page={{ products.previous_page_number }}">
+            <button class="page-btn prev" value="{{ products.previous_page_number }}"> {{ products.previous_page_number }} </button></a>
+                 
+
+            {% endif %} 
+
+            <button class="page-btn active">{{ products.number }}</button>
+
+
+            {% if products.has_next %}
+
+            <a href="?page={{ products.next_page_number }}">
+            <button class="page-btn next" value="{{ products.next_page_number }}">{{ products.next_page_number }}</button></a>
+            
+            <a href="?page={{ products.next_page_number }}">
+            <button class="page-btn next" value="{{ products.next_page_number }}"><i class="fas fa-chevron-right"></i></button>
+
+                      </a>
+
+            {% endif %}
+
+        </div>
+
+        <br>
+    
+ {% endblock %}
